@@ -1,0 +1,20 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <AaasFloatingActionButtonLogout />
+    </Authorized>
+    <NotAuthorized>
+        @{
+            if(context.User.Identity?.IsAuthenticated ?? false)
+            {
+                // TODO: Authenticated but not authorized (need to check claims)
+            }
+            else
+            {
+                <FluentAnchor IconEnd="@(new Icons.Regular.Size16.LockOpen().WithColor("red"))"
+                              Appearance="@Appearance.Stealth"
+                              Style="position:fixed; bottom:5px;left: 50%; transform: translateX(-50%); z-index:1000; border-radius:50%;"
+                              Href="authentication/login" />
+            }
+        }
+    </NotAuthorized>
+</AuthorizeView>

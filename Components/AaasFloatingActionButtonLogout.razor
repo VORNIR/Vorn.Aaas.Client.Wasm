@@ -1,0 +1,38 @@
+﻿@inject NavigationManager NavigationManager
+<form action="authentication/logout" method="post">
+    <AntiforgeryToken />
+    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+    <FluentButton IconEnd="@(new Icons.Regular.Size16.LockClosed().WithColor("green"))"
+                  Appearance="@Appearance.Stealth"
+                  Title="@($"Logout {username}")"
+                  Style="position:fixed; bottom:5px;left: 50%; transform: translateX(-50%); z-index:1000; border-radius:50%;"
+                  Type="ButtonType.Submit" />
+</form>
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? AuthState { get; set; }
+    ClaimsPrincipal User;
+    private string? currentUrl;
+    private string username;
+    protected override async Task OnInitializedAsync()
+    {
+        if(AuthState is null)
+            return;
+        var authState = await AuthState;
+        User = authState.User;
+        username = User.Identity?.Name ?? User.Claims.First(c => c.Type == "name").Value;
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
