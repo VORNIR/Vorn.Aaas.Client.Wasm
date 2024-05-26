@@ -2,11 +2,9 @@
 <form action="authentication/logout" method="post">
     <AntiforgeryToken />
     <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-    <FluentButton IconEnd="@(new Icons.Regular.Size16.LockClosed().WithColor("green"))"
-                  Appearance="@Appearance.Stealth"
-                  Title="@($"Logout {username}")"
-                  Style="position:fixed; bottom:5px;left: 50%; transform: translateX(-50%); z-index:1000; border-radius:50%;"
-                  Type="ButtonType.Submit" />
+    <button class="btn btn-outline-danger" type="submit" style="position:fixed; bottom:5px;left: 50%; transform: translateX(-50%); z-index:1000; border-radius:50%;">
+        <i class="bi bi-person-badge-fill"></i>
+    </button>
 </form>
 @code {
     [CascadingParameter]
