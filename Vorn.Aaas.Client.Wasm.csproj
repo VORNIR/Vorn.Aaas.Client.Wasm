@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PackageId>Vorn.Aaas.Client.Wasm</PackageId>
 		<RepositoryUrl>https://github.com/VORNIR/Vorn.Aaas.Client.Wasm</RepositoryUrl>
-		<Version>1.0.6</Version>
+		<Version>1.0.7</Version>
 		<Authors>Vorn</Authors>
 		<Company>Vorn</Company>
 		<Product>Vorn.Aaas.Client</Product>
