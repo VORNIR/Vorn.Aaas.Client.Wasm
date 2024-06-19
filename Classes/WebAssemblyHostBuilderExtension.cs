@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Vorn.Aaas.Client;
+namespace Vorn.Aaas.Client.Wasm;
 public static class WebAssemblyHostBuilderExtension
 {
     public static WebAssemblyHostBuilder AddAaasClientWasm(this WebAssemblyHostBuilder builder)

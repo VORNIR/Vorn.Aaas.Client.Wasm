@@ -1,22 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
-		<StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+		<PackageId>Vorn.Aaas.Client.Wasm</PackageId>
+		<RepositoryUrl>https://github.com/VORNIR/Vorn.Aaas.Client.Wasm</RepositoryUrl>
+		<Version>1.0.6</Version>
+		<Authors>Vorn</Authors>
+		<Company>Vorn</Company>
+		<Product>Vorn.Aaas.Client</Product>
+		<Title>Vorn AaaS server client wasm package</Title>
+		<Description>
+			This class library is essential for web assembly part of web applications which are clients who get authentication as a service from Vorn AaaS server.
+		</Description>
 	</PropertyGroup>
-
-
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.5" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.6" />
 	</ItemGroup>
-
+	<Target Name="PostBuild" Condition="'$(Configuration)' == 'Release' AND '$(BuildingInsideVisualStudio)' == 'true' " AfterTargets="PostBuildEvent">
+		<Exec Command=" del *.nupkg " WorkingDirectory="bin\Release" />
+		<Exec Command=" dotnet pack --configuration Release  --output bin/Release" />
+		<Exec Command=" dotnet nuget push *.nupkg  --source https://api.nuget.org/v3/index.json " WorkingDirectory="bin\Release" />
+	</Target>
 </Project>
